@@ -9,41 +9,78 @@ namespace ConsoleApp1
     // Clase bill
     // Dada una cantidad, la desglosa en billetes de 50, 20, 10
     //
-    public class bill
+    public class VTM22Billete
     {
         // numero de billetes de 50, 20, 10
-        public int C50, C20, C10;
+        private int cantidad50, cantidad20, cantidad10;
+
+
+        //Getter y setter
+
+        public int Cantidad50
+        {
+            get => Cantidad50 = this.cantidad50;
+            set { this.cantidad50 = value; }
+        }
+
+        public int Cantidad20
+        {
+            get => Cantidad20 = this.cantidad20;
+            set { this.cantidad20 = value; }
+        }
+
+        public int Cantidad10
+        {
+            get => Cantidad10 = this.cantidad10;
+            set { this.cantidad10 = value; }
+        }
 
         // constructor vacio, inicializa los atributos
-        public bill()
+        public VTM22Billete()
         {
-            C50 = 0;
-            C20 = 0;
-            C10 = 0;
+            cantidad50 = 0;
+            cantidad20 = 0;
+            cantidad10 = 0;
         }
 
         // este método permite cambiar la cantidad total y recalcular
-        public void establecercant(int c)
+        /// <summary>
+        /// <para>Este método asigna el mínimo número de billetes combinados entre
+        /// billetes de 10, 20 y 50 que sumen la cantidad inferior más cercana a <paramref name="cantidadTotal"/></para>
+        /// <para>Divide entre cada tipo de billete, de mayor a menor, dividiendo cada vez el resto entre el valor de billete inmediatamente inferior</para>
+        /// </summary>
+        /// <param name="cantidadTotal">cantidadTotal es un número entero que representa la cantidad a dividir en billetes</param>
+        /// <remarks>Si <paramref name="cantidadTotal"/> introducida es inferior a 10 saltará la excepción <exception>ArgumentOutOfRange</exception></remarks>
+        /// 
+        public void EstablecerCantidad(int cantidadTotal)
         {
-            if ((c % 10) != 0)
+            const int DIVISIBLE50 = 50, DIVISIBLE20 = 20, DIVISIBLE10 = 10;
+
+            if ((cantidadTotal % DIVISIBLE10) != 0)
                 throw new ArgumentOutOfRangeException();
 
-            if ((c >= 50))
+            if ((cantidadTotal >= DIVISIBLE50))
             {
-                C50 = (c / 50);
-                c = c - (C50 * 50);
+                cantidad50 = (cantidadTotal / DIVISIBLE50);
+                cantidadTotal = cantidadTotal - (cantidad50 * DIVISIBLE50);
             }
-            if ((c >= 20))
+            if ((cantidadTotal >= DIVISIBLE20))
             {
-                C20 = (c / 20);
-                c = c - (C20 * 20);
+                /*cantidad20 = EsDivisible(cantidadToral, DIVISIBLE20)*/
+                /*(cantidadTotal / DIVISIBLE20);*/
+                cantidadTotal = cantidadTotal - (cantidad20 * DIVISIBLE20);
             }
-            if ((c >= 10))
+            if ((cantidadTotal >= DIVISIBLE10))
             {
-                C10 = (c / 10);
-                c = c - (C10 * 10);
+                cantidadTotal = NewMethod(cantidadTotal, DIVISIBLE10);
             }
+        }
 
+        private int NewMethod(int cantidadTotal, int DIVISIBLE10)
+        {
+            cantidad10 = (cantidadTotal / DIVISIBLE10);
+            cantidadTotal = cantidadTotal - (cantidad10 * DIVISIBLE10);
+            return cantidadTotal;
         }
     }
 
@@ -54,20 +91,20 @@ namespace ConsoleApp1
         // Sólo admite billetes de 50, 20 y 10. Si no es así, se produce una excepción
         static void Main(string[] args)
         {
-            int cant;
-            bill b = new bill();
+            int cantidad;
+            VTM22Billete billete = new VTM22Billete();
 
             string linea;
             Console.Write("Introduzca una cantidad: ");
             linea = Console.ReadLine();
-            cant = int.Parse(linea);
+            cantidad = int.Parse(linea);
 
             try
             {
-                b.establecercant(cant);
-                Console.WriteLine("BILLETES DE 50 : " + b.C50);
-                Console.WriteLine("BILLETES DE 20 : " + b.C20);
-                Console.WriteLine("BILLETES DE 10 : " + b.C10);
+                billete.EstablecerCantidad(cantidad);
+                Console.WriteLine("BILLETES DE 50 : " + billete.Cantidad50);
+                Console.WriteLine("BILLETES DE 20 : " + billete.Cantidad20);
+                Console.WriteLine("BILLETES DE 10 : " + billete.Cantidad10);
             }
             catch
             {
