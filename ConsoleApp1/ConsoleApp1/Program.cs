@@ -1,47 +1,75 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    //YAG212
     // Clase bill
     // Dada una cantidad, la desglosa en billetes de 50, 20, 10
     //
-    public class bill
+    public class Billetes
     {
+        //YAG212
         // numero de billetes de 50, 20, 10
-        public int C50, C20, C10;
+        private int billetesDe50;
+        private int billetesDe20;
+        private int billetesDe10;
 
+
+        public int BilletesDe50 
+        { 
+          get => billetesDe50;  
+          set => billetesDe50 = value; 
+        }
+        public int BilletesDe20 
+        { 
+            get => billetesDe20; 
+            set => billetesDe20 = value; 
+        }
+        public int BilletesDe10 
+        { 
+          get => billetesDe10; 
+          set => billetesDe10 = value; 
+        }
+        /// <summary>
+        /// Esto es 
+        /// </summary>
         // constructor vacio, inicializa los atributos
-        public bill()
+        public Billetes()
         {
-            C50 = 0;
-            C20 = 0;
-            C10 = 0;
+            BilletesDe50 = 0;
+            BilletesDe20 = 0;
+            BilletesDe10 = 0;
         }
 
-        // este método permite cambiar la cantidad total y recalcular
-        public void establecercant(int c)
-        {
-            if ((c % 10) != 0)
-                throw new ArgumentOutOfRangeException();
 
-            if ((c >= 50))
+        //YAG212
+        // este método permite cambiar la cantidad total y recalcular
+        /// <summary>
+        /// Este metodo lo que hace es permitir cambiar la cantidad 
+        /// <para>total del dinero y recalcular el dinero</para>
+        /// </summary>
+        /// <param name="cantidad"> Esto es la canidad que ingresas</param>
+        public void establecerCantidad(int cantidad)
+        {
+            if ((cantidad % 10) != 0)
             {
-                C50 = (c / 50);
-                c = c - (C50 * 50);
+                throw new ArgumentOutOfRangeException();
             }
-            if ((c >= 20))
+
+            if ((cantidad >= 50))
             {
-                C20 = (c / 20);
-                c = c - (C20 * 20);
+                BilletesDe50 = (cantidad / 50);
+                cantidad = cantidad - (BilletesDe50 * 50);
             }
-            if ((c >= 10))
+            if ((cantidad >= 20))
             {
-                C10 = (c / 10);
-                c = c - (C10 * 10);
+                BilletesDe20 = (cantidad / 20);
+                cantidad = cantidad - (BilletesDe20 * 20);
+            }
+            if ((cantidad >= 10))
+            {
+                BilletesDe10 = (cantidad / 10);
+                cantidad = cantidad - (BilletesDe10 * 10);
             }
 
         }
@@ -55,19 +83,19 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             int cant;
-            bill b = new bill();
+            Billetes b = new Billetes();
 
             string linea;
             Console.Write("Introduzca una cantidad: ");
             linea = Console.ReadLine();
             cant = int.Parse(linea);
-
+            //YAG2122
             try
             {
-                b.establecercant(cant);
-                Console.WriteLine("BILLETES DE 50 : " + b.C50);
-                Console.WriteLine("BILLETES DE 20 : " + b.C20);
-                Console.WriteLine("BILLETES DE 10 : " + b.C10);
+                b.establecerCantidad(cant);
+                Console.WriteLine("BILLETES DE 50 : " + b.BilletesDe50);
+                Console.WriteLine("BILLETES DE 20 : " + b.BilletesDe20);
+                Console.WriteLine("BILLETES DE 10 : " + b.BilletesDe10);
             }
             catch
             {
