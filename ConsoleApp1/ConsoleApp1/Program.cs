@@ -12,36 +12,54 @@ namespace ConsoleApp1
     public class bill
     {
         // numero de billetes de 50, 20, 10
-        public int C50, C20, C10;
+        private int billeteDe50;
+        private int billeteDe20;
+        private int billeteDe10;
+
+        public int BilleteDe50 { get => billeteDe50; set => billeteDe50 = value; }
+        public int BilleteDe20 { get => billeteDe20; set => billeteDe20 = value; }
+        public int BilleteDe10 { get => billeteDe10; set => billeteDe10 =  value ; }
+
 
         // constructor vacio, inicializa los atributos
-        public bill()
+        public bill ()
         {
-            C50 = 0;
-            C20 = 0;
-            C10 = 0;
+            BilleteDe50 = 0;
+            BilleteDe20 = 0;
+            BilleteDe10 = 0;
         }
 
-        // este método permite cambiar la cantidad total y recalcular
-        public void establecercant(int c)
+        const int divisorUno = 10;
+        const int divisorDos = 50;
+        const int divisorTres = 20;
+        
+       
+
+        //<summary>
+          /// Este método permite cambiar la cantidad total y recalcular
+          ///<param name="cantidad">campo que introducirá el usuario por teclado y que será comprobado por el método</param>
+          ///<exception cref="ArgumentOutOfRangeException">Puede dar un error de fuera de rango si cantidad no es divisible entre 10</exception>
+        //</summary>
+        
+        public void EstablecerCantidad ( int cantidad )
         {
-            if ((c % 10) != 0)
+            if ( ( cantidad % divisorUno ) != 0 )
                 throw new ArgumentOutOfRangeException();
 
-            if ((c >= 50))
+            if ( ( cantidad >= divisorDos ) )
             {
-                C50 = (c / 50);
-                c = c - (C50 * 50);
+                BilleteDe50 = ( cantidad / 50 );
+                cantidad = cantidad - ( BilleteDe50 * 50 );
             }
-            if ((c >= 20))
+            if ( ( cantidad >= divisorTres ) )
             {
-                C20 = (c / 20);
-                c = c - (C20 * 20);
+                BilleteDe20 = ( cantidad / divisorTres );
+                cantidad = cantidad - ( BilleteDe20 * 20 );
             }
-            if ((c >= 10))
+            if ( ( cantidad >= divisorUno ) )
             {
-                C10 = (c / 10);
-                c = c - (C10 * 10);
+                BilleteDe10 = ( cantidad / divisorUno );
+                cantidad = cantidad - ( BilleteDe10 * divisorUno );
             }
 
         }
@@ -49,32 +67,41 @@ namespace ConsoleApp1
 
     class Program
     {
+        
+        static void Main ( string[] args )
+        {
+            int cantidadBilletes;
+            bill cartera = new bill();
+
+            cantidadBilletes = CalcularBilletes(cartera);
+        }
+
         // El siguiente programa calcula la cantidad necesaria de billetes de
         // cada tipo para una cantidad dada.
         // Sólo admite billetes de 50, 20 y 10. Si no es así, se produce una excepción
-        static void Main(string[] args)
+        private static int CalcularBilletes ( bill cartera )
         {
-            int cant;
-            bill b = new bill();
-
+            int cantidadBilletes;
             string linea;
             Console.Write("Introduzca una cantidad: ");
             linea = Console.ReadLine();
-            cant = int.Parse(linea);
+            cantidadBilletes = int.Parse(linea);
 
             try
             {
-                b.establecercant(cant);
-                Console.WriteLine("BILLETES DE 50 : " + b.C50);
-                Console.WriteLine("BILLETES DE 20 : " + b.C20);
-                Console.WriteLine("BILLETES DE 10 : " + b.C10);
+                cartera.EstablecerCantidad(cantidadBilletes);
+                Console.WriteLine("BILLETES DE 50 : " + cartera.BilleteDe50);
+                Console.WriteLine("BILLETES DE 20 : " + cartera.BilleteDe20);
+                Console.WriteLine("BILLETES DE 10 : " + cartera.BilleteDe10);
             }
             catch
             {
                 Console.WriteLine("Cantidad no válida.");
             }
 
-            Console.Write("Pulse una Tecla."); Console.ReadLine();
+            Console.Write("Pulse una Tecla.");
+            Console.ReadLine();
+            return cantidadBilletes;
         }
     }
 }
