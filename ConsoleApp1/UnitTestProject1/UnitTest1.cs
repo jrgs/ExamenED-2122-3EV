@@ -14,6 +14,10 @@ namespace UnitTestProject1
             int billetes50 = 4;
             int billetes20 = 1;
             int billetes10 = 1;
+
+            Billet
+            
+
         }
     }
 }
