@@ -36,7 +36,7 @@ namespace ConsoleApp1
         ///<returns>devuelve la cantidad de billetes de cada tipo que ha contabilizado dandole valor a los miembros de la clase</returns>
         ///<exception>Devuelve excepcion cuando introducimos un valor que al dividir por 10 su resto no sea 0</exception>
         ///</summary>
-        ///<remarks></remarks>
+        ///<remarks>Se adjuntan pruebas unitarias</remarks>
         public void EstablecerCantidadTotal(int cantidad)
         {
             if ((cantidad % 10) != 0)
