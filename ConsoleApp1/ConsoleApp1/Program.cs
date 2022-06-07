@@ -7,74 +7,107 @@ using System.Threading.Tasks;
 namespace ConsoleApp1
 {
     // Clase bill
-    // Dada una cantidad, la desglosa en billetes de 50, 20, 10
+    // Dada una cantidadTotal, la desglosa en billetes de 50, 20, 10    MPRG2122
     //
-    public class bill
+    public class Billetes
     {
-        // numero de billetes de 50, 20, 10
-        public int C50, C20, C10;
+        // numero de billetes de 50, 20, 10     MPRG2122
+        private int billetes10;
+        private int billetes50;
+        private int billetes20;
 
         // constructor vacio, inicializa los atributos
-        public bill()
+        public Billetes()
         {
-            C50 = 0;
-            C20 = 0;
-            C10 = 0;
+            Billetes50 = 0;
+            Billetes20 = 0;
+            Billetes10 = 0;
         }
 
-        // este método permite cambiar la cantidad total y recalcular
-        public void establecercant(int c)
+        public int Billetes50 
+        { 
+            get => billetes50; 
+            set => billetes50 = value; 
+        }
+        public int Billetes20 
         {
-            if ((c % 10) != 0)
+            get => billetes20;
+            set => billetes20 = value;
+        }
+        public int Billetes10 
+        {
+            get => billetes10;
+            set => billetes10 = value; }
+
+        /*  este método permite cambiar la cantidadTotal total y recalcular      MPRG2122   */
+        /// <summary>
+        /// El método <see cref="EstablecerCantidad"/> obtiene el número necesario de los siguientes:
+        /// <para><list type="bullet"</para>
+        /// <item>Billetes 50</item>
+        /// <item>Billetes 20</item>
+        /// <item>Billetes 10</item>
+        /// </summary>
+        /// <summary> <param name="nuevaCantidadTotal">Se obtendrá por consola del usuario</param>
+        /// <para>con la función <paramref name="Main"principal </summary></para>
+        public void EstablecerCantidad(int nuevaCantidadTotal)
+        {
+            ///<exception cref="ArgumentOutOfRangeException">Única excepción generada</exception>
+            if ((nuevaCantidadTotal % 10) != 0)
+            {
                 throw new ArgumentOutOfRangeException();
-
-            if ((c >= 50))
-            {
-                C50 = (c / 50);
-                c = c - (C50 * 50);
             }
-            if ((c >= 20))
+            ///TODO realizar resto de excepciones 
+            if ((nuevaCantidadTotal >= 50))
             {
-                C20 = (c / 20);
-                c = c - (C20 * 20);
-            }
-            if ((c >= 10))
-            {
-                C10 = (c / 10);
-                c = c - (C10 * 10);
+                Billetes50 = (nuevaCantidadTotal / 50);
+                nuevaCantidadTotal = nuevaCantidadTotal - (Billetes50 * 50);
             }
 
+            if ((nuevaCantidadTotal >= 20))
+            {
+                Billetes20 = (nuevaCantidadTotal / 20);
+                nuevaCantidadTotal = nuevaCantidadTotal - (Billetes20 * 20);
+            }
+
+            if ((nuevaCantidadTotal >= 10))
+            {
+                Billetes10 = (nuevaCantidadTotal / 10);
+                nuevaCantidadTotal = nuevaCantidadTotal - (Billetes10 * 10);
+            }
         }
     }
 
     class Program
     {
-        // El siguiente programa calcula la cantidad necesaria de billetes de
-        // cada tipo para una cantidad dada.
+        // El siguiente programa calcula la cantidadTotal necesaria de billetes de
+        // cada tipo para una cantidadTotal dada.
         // Sólo admite billetes de 50, 20 y 10. Si no es así, se produce una excepción
         static void Main(string[] args)
         {
-            int cant;
-            bill b = new bill();
+            int cantidadTotal;
+
+            Billetes objetoBilletes = new Billetes();
 
             string linea;
-            Console.Write("Introduzca una cantidad: ");
-            linea = Console.ReadLine();
-            cant = int.Parse(linea);
+
+            Console.Write("Introduzca una cantidadTotal: ");  //MPRG2122
+            linea = Console.ReadLine(); 
+            cantidadTotal = int.Parse(linea);
 
             try
             {
-                b.establecercant(cant);
-                Console.WriteLine("BILLETES DE 50 : " + b.C50);
-                Console.WriteLine("BILLETES DE 20 : " + b.C20);
-                Console.WriteLine("BILLETES DE 10 : " + b.C10);
+                objetoBilletes.EstablecerCantidad(cantidadTotal);
+                Console.WriteLine("BILLETES DE 50 : " + objetoBilletes.Billetes50);
+                Console.WriteLine("BILLETES DE 20 : " + objetoBilletes.Billetes20);
+                Console.WriteLine("BILLETES DE 10 : " + objetoBilletes.Billetes10);
             }
             catch
             {
-                Console.WriteLine("Cantidad no válida.");
+                Console.WriteLine("cantidadTotal no válida.");
             }
 
             Console.Write("Pulse una Tecla."); Console.ReadLine();
         }
     }
 }
+// MPRG2122
