@@ -9,39 +9,93 @@ namespace ConsoleApp1
     // Clase bill
     // Dada una cantidad, la desglosa en billetes de 50, 20, 10
     //
-    public class bill
+    /// <summary>
+    /// <para>Clase Bill</para>
+    /// <para>esta clase almacena las funciones y atributos necesarios para que al introducir un valor</para>
+    /// <para>siempre y cuando sea divisible por 10 nos lo divide en billetes de 10, 20 y 40</para>
+    /// </summary>
+    public class Bill
     {
         // numero de billetes de 50, 20, 10
-        public int C50, C20, C10;
+
+        /// <summary>
+        /// Cantidad de billetes de 10 es privada
+        /// </summary>
+        private int billetes10FAM2122;
+
+    
+        /// <summary>
+        /// Cantidad de billetes de 50 es privada
+        /// </summary>
+        private int billete50FAM2122;
+
+        /// <summary>
+        /// Cantidad de billetes de 20 es privada
+        /// </summary>
+        private int billetes20FAM2122;
+
+
+        /// <summary>
+        /// <para>Establece el valor de los billetes de 50</para>
+        /// <para>mediante set y get</para>
+        /// </summary>
+        public int Billete50FAM2122
+        { get => billete50FAM2122; set => billete50FAM2122 = value; }
+
+        /// <summary>
+        /// <para>Establece el valor de los billetes de 20</para>
+        /// <para>mediante set y get</para>
+        /// </summary>
+        public int Billetes20FAM2122
+        { get => billetes20FAM2122; set => billetes20FAM2122 = value; }
+
+        /// <summary>
+        ///<para>Establece el valor de los billetes de 20</para>
+        /// <para>mediante set y get</para>
+        /// </summary>
+        public int Billete10FAM2122
+        { get => billetes10FAM2122; set => billetes10FAM2122 = value; }
+
+        //autoria Franco Andres Mattiazzo
 
         // constructor vacio, inicializa los atributos
-        public bill()
+        /// <summary>
+        /// constructor vacio que inicializa los atributos
+        /// </summary>
+        public Bill()
         {
-            C50 = 0;
-            C20 = 0;
-            C10 = 0;
+            Billete50FAM2122 = 0;
+            Billetes20FAM2122 = 0;
+            Billete10FAM2122 = 0;
         }
 
-        // este método permite cambiar la cantidad total y recalcular
-        public void establecercant(int c)
+
+        /// <summary>
+        /// Metodo que introduciendo una cantidad total divide en cantidad de billetes
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Excepcion que se genera cuando se introduce un valor menor de 10</exception>
+        /// <param name="cantidad"> Cantidad es el importe total introducido por el usuario</param>
+        /// <remarks>Importante introducir siempre importes divisibles por 10 como minimo</remarks>
+        //autoria franco andres mattiazzo
+        public void EstablecerCantidad(int cantidad)
         {
-            if ((c % 10) != 0)
+            if ((cantidad % 10) != 0)
                 throw new ArgumentOutOfRangeException();
 
-            if ((c >= 50))
+            if ((cantidad >= 50))
             {
-                C50 = (c / 50);
-                c = c - (C50 * 50);
+                Billete50FAM2122 = (cantidad / 50);
+                cantidad = cantidad - (Billete50FAM2122 * 50);
             }
-            if ((c >= 20))
+            if ((cantidad >= 20))
             {
-                C20 = (c / 20);
-                c = c - (C20 * 20);
+                Billetes20FAM2122 = (cantidad / 20);
+                cantidad = cantidad - (Billetes20FAM2122 * 20);
             }
-            if ((c >= 10))
+            if ((cantidad >= 10))
             {
-                C10 = (c / 10);
-                c = c - (C10 * 10);
+                Billete10FAM2122 = (cantidad / 10);
+                cantidad = cantidad - (Billete10FAM2122 * 10);
             }
 
         }
@@ -54,20 +108,20 @@ namespace ConsoleApp1
         // Sólo admite billetes de 50, 20 y 10. Si no es así, se produce una excepción
         static void Main(string[] args)
         {
-            int cant;
-            bill b = new bill();
+            int cantidad;
+            Bill b = new Bill();
 
             string linea;
             Console.Write("Introduzca una cantidad: ");
             linea = Console.ReadLine();
-            cant = int.Parse(linea);
+            cantidad = int.Parse(linea);
 
             try
             {
-                b.establecercant(cant);
-                Console.WriteLine("BILLETES DE 50 : " + b.C50);
-                Console.WriteLine("BILLETES DE 20 : " + b.C20);
-                Console.WriteLine("BILLETES DE 10 : " + b.C10);
+                b.EstablecerCantidad(cantidad);
+                Console.WriteLine("BILLETES DE 50 : " + b.Billete50FAM2122);
+                Console.WriteLine("BILLETES DE 20 : " + b.Billetes20FAM2122);
+                Console.WriteLine("BILLETES DE 10 : " + b.Billete10FAM2122);
             }
             catch
             {
