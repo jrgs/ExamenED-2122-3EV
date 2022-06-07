@@ -51,6 +51,8 @@ namespace ConsoleApp1
         /// <param name="cantidad"> Esto es la canidad que ingresas</param>
         public void establecerCantidad(int cantidad)
         {
+          
+
             if ((cantidad % 10) != 0)
             {
                 throw new ArgumentOutOfRangeException();
