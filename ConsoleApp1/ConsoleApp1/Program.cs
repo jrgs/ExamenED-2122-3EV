@@ -6,42 +6,71 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    // Clase bill
-    // Dada una cantidad, la desglosa en billetes de 50, 20, 10
-    //
-    public class bill
+    ///<summary>
+    /// Clase Billete
+    /// <remarks>Dada una cantidad, la desglosa en billetes de 50, 20, 10</remarks>
+    /// </summary>
+        public class Billete 
+
     {
         // numero de billetes de 50, 20, 10
-        public int C50, C20, C10;
+        public int cantidadDe50;
+        public int cantidadDe20;
+        public int cantidadDe10;
 
-        // constructor vacio, inicializa los atributos
-        public bill()
-        {
-            C50 = 0;
-            C20 = 0;
-            C10 = 0;
+        public int CantidadDe50 
+        { 
+            get {return cantidadDe50;} 
+            set { cantidadDe50 = value;} 
         }
 
-        // este método permite cambiar la cantidad total y recalcular
-        public void establecercant(int c)
-        {
-            if ((c % 10) != 0)
-                throw new ArgumentOutOfRangeException();
+        public int CantidadDe20 
+        { 
+            get {return cantidadDe20;} 
+            set { cantidadDe20 = value;} 
+        }//CCC2122
 
-            if ((c >= 50))
-            {
-                C50 = (c / 50);
-                c = c - (C50 * 50);
+        public int CantidadDe10 
+        { 
+            get {return cantidadDe10;} 
+            set { cantidadDe10 = value;} 
+        }
+
+        // constructor vacio, inicializa los atributos
+        public Billete()
+        {
+            cantidadDe50 = 0;
+            cantidadDe20 = 0;
+            cantidadDe10 = 0;
+        }
+
+        ///<summary>
+        ///este método permite cambiar la cantidad total y recalcular
+        ///<param name=cantidad>cantidad a calcular CCC2122</param>
+        ///</summary>
+        public void establecerCantidadTotal (int cantidad)
+        {
+            if ((cantidad % 10) != 0)//CCC2122
+            { 
+                throw new ArgumentOutOfRangeException();
             }
-            if ((c >= 20))
+
+            if ((cantidad >= 50))//CCC2122
             {
-                C20 = (c / 20);
-                c = c - (C20 * 20);
+                cantidadDe50 = (cantidad / 50);
+                cantidad = cantidad - (cantidadDe50 * 50);
             }
-            if ((c >= 10))
+
+            if ((cantidad >= 20))
             {
-                C10 = (c / 10);
-                c = c - (C10 * 10);
+                cantidadDe20 = (cantidad / 20);
+                cantidad = cantidad - (cantidadDe20 * 20);
+            }
+
+            if ((cantidad >= 10))
+            {
+                cantidadDe10 = (cantidad / 10);
+                cantidad = cantidad - (cantidadDe10 * 10);
             }
 
         }
@@ -54,26 +83,26 @@ namespace ConsoleApp1
         // Sólo admite billetes de 50, 20 y 10. Si no es así, se produce una excepción
         static void Main(string[] args)
         {
-            int cant;
-            bill b = new bill();
+            int cantidad;
+            Billete billetes = new Billete();
 
             string linea;
             Console.Write("Introduzca una cantidad: ");
             linea = Console.ReadLine();
-            cant = int.Parse(linea);
+            cantidad = int.Parse(linea);
 
             try
             {
-                b.establecercant(cant);
-                Console.WriteLine("BILLETES DE 50 : " + b.C50);
-                Console.WriteLine("BILLETES DE 20 : " + b.C20);
-                Console.WriteLine("BILLETES DE 10 : " + b.C10);
+                billetes.establecerCantidadTotal(cantidad);
+                Console.WriteLine("BILLETES DE 50 : " + billetes.cantidadDe50);
+                Console.WriteLine("BILLETES DE 20 : " + billetes.cantidadDe20);
+                Console.WriteLine("BILLETES DE 10 : " + billetes.cantidadDe10);
             }
             catch
             {
                 Console.WriteLine("Cantidad no válida.");
             }
-
+            
             Console.Write("Pulse una Tecla."); Console.ReadLine();
         }
     }
